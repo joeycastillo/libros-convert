@@ -1,4 +1,5 @@
 import io
+import os
 import sys
 from epub2txt import epub2txt
 from lxml.etree import XMLSyntaxError
@@ -68,9 +69,9 @@ while not done:
     else:
         done = True
 
-components = filepath.split('.')
-components[-1] = 'txt'
-outfile = './output/' + '.'.join(components)
+filename = os.path.basename(filepath)
+basename, ext = os.path.splitext(filename)
+outfile = os.path.join('output', '%s.txt' % (basename, ))
 
 with io.open(outfile, 'w', encoding='utf8') as f:
     f.write(u'---\n')
